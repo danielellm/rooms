@@ -1,1 +1,23 @@
-
+{
+  "name": "room",
+  "version": "0.1.0",
+  "description": "rooms.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "repository": {
+    "url": ""
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch"
+  ]
+}
