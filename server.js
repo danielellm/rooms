@@ -10,6 +10,21 @@ const server = http.createServer(app);
 // Erstellen Sie einen Socket.io-Server auf dem HTTP-Server
 const io = socketio(server);
 
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+app.get('/master', (req, res) => {
+  res.sendFile(__dirname + '/public/master.html');
+});
+
+app.get('/client', (req, res) => {
+  res.sendFile(__dirname + '/public/client.html');
+});
+
+
 // Starten Sie den HTTP-Server
 server.listen(3000, () => {
   console.log('Server started on port 3000');
@@ -45,12 +60,10 @@ io.on('connection', (socket) => {
     activeRooms.add(room);
     // Treten Sie dem Socket des Clients bei, der den Raum erstellt hat
     socket.join(room);
-    // Benachrichtigen Sie alle Clients, dass ein neuer Raum erstellt wurde
-    io.emit('roomCreated', room);
   });
 
   // Wenn der Client einem Raum beitritt
-  socket.on('joinRoom', (room) => {
+  socket.on('joinRoom', (room, role) => {
     console.log('Client joined room:', room);
     // Wenn der Raum aktiv ist, treten Sie dem Socket des Clients bei
     if (activeRooms.has(room)) {
